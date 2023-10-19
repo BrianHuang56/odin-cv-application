@@ -5,6 +5,14 @@
 
 .form-header {padding-bottom:0.5rem;}
 
+.header-info-container {
+    display:flex;
+    align-items:center;
+    gap:3px;
+    font-size:14px;
+    font-weight:400;
+}
+
 .edit-section-container {
     display:flex;
     flex-direction:column;
