@@ -1,0 +1,100 @@
+.section-button {
+    width:100%;
+    background-color:#ffffff;
+}
+
+.form-header {padding-bottom:0.5rem;}
+
+.edit-section-container {
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    padding-top:1rem;
+}
+
+.edit-section-form {
+    border-radius:10px;
+    background-color:white;
+    position:relative;
+    padding:15px 25px;
+}
+
+.edit-section-form label {
+    display:flex;
+    flex-direction:column;
+    text-align:left;
+    padding-bottom:10px;
+}
+
+input {
+    border:none;
+}
+
+.date-container {
+    display:flex;
+    gap:10px;
+}
+
+#desc {
+    height:4rem;
+}
+
+.date-container label {
+    width:calc(50% - 5px);
+}
+
+#button-container-header {
+    justify-content:flex-end;
+}
+
+.button-container {
+    padding-top:0.25rem;
+    display:flex;
+    justify-content:space-between;
+}
+
+.button-container button {
+    border-radius:10px;
+    transition:0.3s background-color, color;
+    background-color:rgb(240, 240, 240);
+}
+
+.button-container button:hover {
+    background-color:black;
+    color:white;
+}
+
+.edit-section-form input {
+    background-color:rgb(245, 245, 245);
+    height:2rem;
+    padding-left:10px;
+    border-radius:10px;
+}
+
+.edit-section-form input:focus {
+    outline:1px solid darkgray;
+}
+
+.close {
+    height:20px;
+    padding:0px;
+    position:absolute;
+    top:5px;
+    right:5px;
+    background-color:transparent;
+}
+
+.add-section {
+    height:42.4px;
+    border-radius:8px;
+    text-align:center;
+    margin-top:2rem;
+}
+
+.add-section:hover {
+    outline:1px solid lightskyblue;
+}
+
+.add-section:focus {
+    outline:1px solid lightskyblue;
+}

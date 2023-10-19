@@ -1,0 +1,44 @@
+.list-header {
+    text-align:left;
+    border-bottom:2px solid steelblue;
+    line-height:normal;
+    font-weight:500;
+    color:steelblue;
+    font-size:20px;
+    padding-bottom:2px;
+    margin-bottom:5px;
+}
+
+.listitem {
+    gap:0.5rem;
+    text-align:left;
+    display:grid;
+    grid-template-areas: 
+    "col1 col2"
+    "desc desc";
+    padding-bottom:1rem;
+}
+
+.col1 {
+    grid-area:col1;
+}
+
+.col2 {
+    text-align:right;
+    grid-area:col2;
+}
+
+.description {
+    grid-area:desc;
+    padding-left:40px;
+}
+
+.description ul {
+    padding-left:0px;
+    margin-top:0px;
+}
+
+.name {
+    font-weight:500;
+}
+

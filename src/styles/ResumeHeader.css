@@ -1,0 +1,18 @@
+.header-container {
+    padding-top:1rem;
+    padding-bottom:1rem;
+    background-color:steelblue;
+    color:white;
+}
+.resume-info {
+    display:flex;
+    justify-content:center;
+    padding-top:1rem;
+    gap: 2rem;
+    font-size:17px;
+}
+.resume-name {
+    font-size:40px;
+    font-weight:500;
+    line-height:normal;
+}
