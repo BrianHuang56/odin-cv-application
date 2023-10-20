@@ -6,10 +6,9 @@ import { useState } from 'react';
 
 var copyHeader;
 function App() {
-  const defHeader = {"name": "Temp Name", "phone": "111-222-3333", "email": "placeholder@email.com", "location": "doesnot, exist"};
+  const defHeader = {"name": "Temp Name", "phone": "111-222-3333", "email": "placeholder@email.com", "location": "Some, Place"};
   const education = [{"datestart": "August 2019", "dateend": "May 2023", "name": "University of Maryland, College Park", 
-                     "title": "Bachelors in Computer Science", "location": "College Park, Maryland", "key": uuidv4()}, {"datestart": "September 2016", 
-                     "dateend": "June 2019", "name": "WW-P HSN", "title": "GED", "location": "West Windsor, New Jersey", "key": uuidv4()}];
+                     "title": "Bachelors in Computer Science", "location": "College Park, Maryland", "key": uuidv4()}];
   const we = [{"datestart": "June 2023", "dateend": "Present", "name": "Company LLC", "title": "Job Title", "location": "Some, Place",
                "key": uuidv4(), "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}];
   const defBody = [{"list": education, "title": "Education", "key": uuidv4()}, {"list": we, "title": "Work Experience", "key": uuidv4()}];

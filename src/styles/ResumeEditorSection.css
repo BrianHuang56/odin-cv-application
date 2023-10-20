@@ -3,7 +3,58 @@
     background-color:#ffffff;
 }
 
-.form-header {padding-bottom:0.5rem;}
+.section-button:hover {
+    outline:1px solid lightskyblue;
+}
+
+dialog {
+    border:none;
+    padding:1em 2em;
+    box-shadow: 4px 6px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+#no {padding-left:0px;}
+#yes {padding-right:0px;}
+
+.dialog-confirmation {
+    font-size:30px;
+}
+
+.dialog-button-container {
+    padding-top:1rem;
+    display:flex;
+    justify-content:space-between;
+}
+
+.dialog-button-container button {
+    font-weight:400;
+    font-size:20px;
+    background-color:transparent;
+}
+
+.dialog-button-container button:hover {
+    font-weight:bold;
+}
+
+.editor-header .section-button, .editor-header .edit-section-form {
+    margin-top:0.5rem;
+}
+
+.header-title {
+    padding-left:15px;
+    background-color:white;
+    display:flex;
+    justify-content:space-between;
+    padding-right:5px;
+    align-items:center;
+    height:3rem;
+    font-weight:500;
+    font-size:20px;
+    border-radius:8px;
+    width:100%;
+}
+
+.header-title:hover {outline:1px solid lightskyblue;}
 
 .header-info-container {
     display:flex;

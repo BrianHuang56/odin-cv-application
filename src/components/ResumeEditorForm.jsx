@@ -1,3 +1,5 @@
+import ResumeEditorDeleteConfirm from "./ResumeEditorDeleteConfirm";
+
 function ResumeEditorForm(props) {
     return(
         <form className="edit-section-form">
@@ -32,11 +34,11 @@ function ResumeEditorForm(props) {
                 {props.list.key !== "temp" ?
                     <button className="delete" onClick={e => {
                         e.preventDefault();
-                        props.delete(props.title, props.list.key);
-                        props.setForm(-1);
+                        const dialog = document.querySelector("dialog");
+                        dialog.showModal();
                     }}>
                         Delete
-                    </button> :
+                    </button>:
                     <div></div>    
                 }
                 <button className="save" onClick={e => {
@@ -47,6 +49,7 @@ function ResumeEditorForm(props) {
                     Save
                 </button>
             </div>
+            <ResumeEditorDeleteConfirm title={props.title} id={props.list.key} delete={props.delete} setForm={props.setForm}/>
         </form>
     );
 }

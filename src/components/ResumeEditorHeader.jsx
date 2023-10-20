@@ -1,15 +1,24 @@
 import { useState } from "react";
 
 function ResumeEditorHeader(props) {
+    function toggleDrop() {
+        if (props.displaySubsec) props.setSection(-2);
+        else props.setSection(-1);
+        setDisplay(false);
+    }
+
+    const [displayForm, setDisplay] = useState(false);
+
     return (
         <div className="editor-header">
-            <div className="form-header">Personal Details</div>
-            {!props.displayForm ? 
-                <button className="section-button" onClick={() => props.setSection(-1)}>{props.header.name}</button> :
+            <button onClick={toggleDrop} className="form-header header-title">Personal Details <img className="drop down" src={props.displaySubsec ? "/menu-up.svg" : "/menu-down.svg"} height="30px"/></button>
+            {props.displaySubsec && !displayForm ? 
+                <button className="section-button" onClick={() => setDisplay(!displayForm)}>{props.header.name}</button> : null}
+                {displayForm && props.displaySubsec ? 
                 <form className="edit-section-form">
                     <button className="close" onClick={e => {
                             e.preventDefault();
-                            props.setSection(-2);
+                            setDisplay(false);
                             props.revert();
                         }}>
                             <img src="/window-close.svg" height="20px"/>
@@ -29,12 +38,13 @@ function ResumeEditorHeader(props) {
                     <div id="button-container-header" className="button-container">
                         <button className="save" onClick={e => {
                             e.preventDefault();
-                            props.setSection(-2);
+                            setDisplay(false);
                             props.save();
                             }}>Save</button>
                     </div>
                 </form>
-                }
+                : null
+                } 
         </div>
     );
 }
