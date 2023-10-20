@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 var copyHeader;
 function App() {
-  const defHeader = {"name": "Temp Name", "phone": "111-222-3333", "email": "placeholder@email.com", "location": "Some, Place"};
+  const defHeader = {"name": "Your Name", "phone": "111-222-3333", "email": "placeholder@email.com", "location": "Some, Place"};
   const education = [{"datestart": "August 2019", "dateend": "May 2023", "name": "University of Maryland, College Park", 
                      "title": "Bachelors in Computer Science", "location": "College Park, Maryland", "key": uuidv4()}];
   const we = [{"datestart": "June 2023", "dateend": "Present", "name": "Company LLC", "title": "Job Title", "location": "Some, Place",
