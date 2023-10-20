@@ -3,6 +3,23 @@
     background-color:#ffffff;
 }
 
+.header-right {
+    display:flex;
+    align-items:center;
+    position:relative;
+}
+
+.triple-dot-drop {
+    position:absolute;
+    text-wrap:nowrap;
+    padding:5px;
+    border-radius:8px;
+    background-color:white;
+    left:35px;
+    top:10px;
+    z-index:1;
+}
+
 .section-button:hover {
     outline:1px solid lightskyblue;
 }

@@ -53,6 +53,17 @@ function App() {
     }
   }
 
+  function deleteSection(secTitle) {
+    for (var i = 0;i < body.length;i++) {
+      if (body[i].title === secTitle) {
+        let newBody = [...body];
+        newBody.splice(i, 1);
+        setBody(newBody);
+        setPrevBody(JSON.parse(JSON.stringify(newBody)));
+      }
+    }
+  }
+
   function saveBody(secTitle, id) {
     if (id === "temp") {
       for (var i = 0;i < body.length;i++) {
@@ -117,7 +128,7 @@ function App() {
 
   return (
     <>
-      <ResumeEditor header={header} body={prevBody} addSection={addSection} onChangeHeader={changeHeader} revertHeader={revertHeader} saveHeader={saveHeader} onChangeBody={changeBody} revertBody={revertBody} saveBody={saveBody} deleteMap={deleteMap}/>
+      <ResumeEditor header={header} body={prevBody} addSection={addSection} delSection={deleteSection} onChangeHeader={changeHeader} revertHeader={revertHeader} saveHeader={saveHeader} onChangeBody={changeBody} revertBody={revertBody} saveBody={saveBody} deleteMap={deleteMap}/>
       <Resume header={header} body={body} />
     </>
   )
