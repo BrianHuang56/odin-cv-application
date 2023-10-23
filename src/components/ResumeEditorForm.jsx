@@ -34,7 +34,7 @@ function ResumeEditorForm(props) {
                 {props.list.key !== "temp" ?
                     <button className="delete" onClick={e => {
                         e.preventDefault();
-                        const dialog = document.querySelector("dialog");
+                        const dialog = document.querySelector("#" + CSS.escape(props.list.key));
                         dialog.showModal();
                     }}>
                         Delete

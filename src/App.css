@@ -8,6 +8,10 @@
 
 .editor-container {width:400px;}
 
+.editor-container > div {
+  margin-bottom:1rem;
+}
+
 .resume-container {
   width:612px;
   height:792px;

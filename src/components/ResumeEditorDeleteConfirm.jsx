@@ -1,7 +1,6 @@
 function ResumeEditorDeleteConfirm(props) {
-    console.log(props);
     return (
-        <dialog>
+        <dialog id={props.id || props.title}>
             <span className="dialog-confirmation">Are you sure you want to delete this?</span>
             <div className="dialog-button-container">
                 <button id="no" onClick={e => {

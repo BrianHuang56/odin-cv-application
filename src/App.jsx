@@ -1,6 +1,7 @@
 import './App.css'
 import Resume from "./components/Resume";
 import ResumeEditor from "./components/ResumeEditor";
+import ResumeEditorModes from "./components/ResumeEditorModes";
 import {v4 as uuidv4} from 'uuid';
 import { useState } from 'react';
 
@@ -16,6 +17,7 @@ function App() {
   const [header, setHeader] = useState(defHeader);
   const [body, setBody] = useState(defBody);
   const [prevBody, setPrevBody] = useState(JSON.parse(JSON.stringify(defBody)));
+  const [editType, setEditType] = useState(0);
 
   function changeHeader(key, newVal) {
     if (copyHeader === undefined) copyHeader = JSON.parse(JSON.stringify(header));
@@ -62,6 +64,13 @@ function App() {
         setPrevBody(JSON.parse(JSON.stringify(newBody)));
       }
     }
+  }
+
+  function insertSection(origSec, insertSec) {
+    let newBody = [...body];
+    newBody.splice(Math.max(insertSec - 1, 0), 0, newBody.splice(origSec, 1)[0]);
+    setBody(newBody);
+    setPrevBody(JSON.parse(JSON.stringify(newBody)));
   }
 
   function saveBody(secTitle, id) {
@@ -126,9 +135,18 @@ function App() {
     setPrevBody(JSON.parse(JSON.stringify(newBody))); 
   }
 
+  function changeSectionTitle(ind, newTitle) {
+    if (checkDupTitle(newTitle)) return false;
+    let newBody = [...body];
+    newBody[ind].title = newTitle;
+    setBody(newBody);
+    setPrevBody(JSON.parse(JSON.stringify(newBody)));
+  }
+
   return (
     <>
-      <ResumeEditor header={header} body={prevBody} addSection={addSection} delSection={deleteSection} onChangeHeader={changeHeader} revertHeader={revertHeader} saveHeader={saveHeader} onChangeBody={changeBody} revertBody={revertBody} saveBody={saveBody} deleteMap={deleteMap}/>
+      <ResumeEditorModes editType={editType} setEditType={setEditType} />
+      <ResumeEditor header={header} body={prevBody} editType={editType} changeSectionTitle={changeSectionTitle} insertSection={insertSection} addSection={addSection} delSection={deleteSection} onChangeHeader={changeHeader} revertHeader={revertHeader} saveHeader={saveHeader} onChangeBody={changeBody} revertBody={revertBody} saveBody={saveBody} deleteMap={deleteMap}/>
       <Resume header={header} body={body} />
     </>
   )

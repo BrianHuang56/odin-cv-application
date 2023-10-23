@@ -9,9 +9,67 @@ function ResumeEditorSection(props) {
     const [addForm, setAddForm] = useState(-1);
 
     function checkClick(event) {
+        if (event.target.className === "section-change") return;
         if (event.target.className !== "triple-dot" && event.target.parentElement.className !== "triple-dot-drop") toggleDrop();
         else if (event.target.parentElement.className === "triple-dot-drop") props.setTripleDot(-2);
         else props.setTripleDot(props.ind);
+    }
+
+    function changeSectionName(event) {
+        if (event.code === "Enter") {
+            if (event.currentTarget.value === "" || !props.changeSectionTitle(props.ind, event.currentTarget.value)) {
+                const span = event.currentTarget.parentElement;
+                event.currentTarget.remove();
+                span.innerHTML = CSS.escape(props.map.title);
+            }
+        }
+    }
+
+    function moveSection(event) {
+        if (event.target.parentElement.className !== "triple-dot-drop" && event.target.className !== "triple-dot") {
+            document.addEventListener("mousemove", dragMouse);
+            document.addEventListener("mouseup", closeDragMouse);
+            const section = event.currentTarget.parentElement.parentElement;
+            const placeHolder = document.createElement("div");
+            placeHolder.style.height = section.offsetHeight + "px";
+            placeHolder.style.width = section.offsetWidth + "px";
+            placeHolder.id = "placeholder";
+            section.parentElement.insertBefore(placeHolder, section.nextSibling);
+            section.style.width = section.offsetWidth + "px";
+            section.style.position = "fixed";
+            section.style.zIndex = "200";
+            let xPos = 0;
+            let yPos = -document.documentElement.scrollTop;
+            section.style.transform = `translate(${xPos}px, ${yPos}px)`;
+
+            function dragMouse(event) {    
+                xPos += event.movementX;
+                yPos += event.movementY;
+                section.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            }
+
+            function closeDragMouse(event) {
+                document.getElementById("placeholder").remove();
+                document.removeEventListener("mouseup", closeDragMouse);
+                document.removeEventListener("mousemove", dragMouse);
+                const currY = event.clientY;
+                section.style.position = null;
+                section.style.transform = null;
+                section.style.width = null;
+                section.style.zIndex = null;
+                const editContainer = document.querySelector(".editor-container");
+                const children = editContainer.children;
+                for (var i = 0;i < children.length;i++) {
+                    var rect = children[i].getBoundingClientRect();
+                    var offset = children[i].clientHeight / 2;
+                    if (rect.y - offset >= currY) {
+                        props.insertSection(props.ind, i);
+                        return;
+                    }
+                }
+                props.insertSection(props.ind, children.length);
+            }
+        }
     }
 
     function toggleDrop() {
@@ -24,18 +82,40 @@ function ResumeEditorSection(props) {
     return (
         <div className="edit-section-container">
             <div className="edit-section-header">
-                <button onClick={e => checkClick(e)} className="header-title">
-                    {props.map.title}
+                <button onClick={props.editType === 0 ? e => checkClick(e) : null} onMouseDown={props.editType === 1 ? moveSection : null} className="header-title">
+                    <span>
+                        {props.map.title}
+                    </span>
+                    {props.editType === 0 ?
                     <div className="header-right">
                         <img className="drop down" src={props.displaySubsec ? "/menu-up.svg" : "/menu-down.svg"} height="30px"/>
                         <img className="triple-dot" src="/dots-vertical.svg" height="25px"/>
                         {props.displayTripleDot ? <div className="triple-dot-drop">
-                            <div>Edit Name</div>
+                            <div onMouseUp={e => {
+                                e.stopPropagation();
+                                const span = e.currentTarget.parentElement.parentElement.parentElement.querySelector("span");
+                                const input = document.createElement("input");
+                                input.type = "text";
+                                input.placeholder = props.map.title;
+                                input.style.fontSize = "20px";
+                                input.className = "section-change";
+                                span.innerHTML = "";
+                                input.addEventListener("keydown", changeSectionName);
+                                span.appendChild(input);
+                                input.focus();
+                                document.addEventListener("mouseup", e => {
+                                    if (e.target.className !== "section-change") {
+                                        input.remove();
+                                        span.innerHTML = props.map.title;
+                                    }
+                                });
+                            }}>Edit Name</div>
                             <div onMouseUp={() => {
-                                document.querySelector("dialog").showModal();
+                                document.querySelector("#" + CSS.escape(props.map.title)).showModal();
                             }}>Delete</div>
                         </div> : null}
                     </div>
+                    : null}
                 </button>
             </div>
             {props.map.list && props.displaySubsec ? props.map.list.map((l, ind) => {
