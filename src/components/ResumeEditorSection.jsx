@@ -15,13 +15,21 @@ function ResumeEditorSection(props) {
         else props.setTripleDot(props.ind);
     }
 
+    function removeInput(event) {
+        if (event.target.className !== "section-change") {
+            const input = document.querySelector(".section-change");
+            const span = input.parentElement;
+            input.remove();
+            span.innerHTML = props.map.title;
+        }
+    }
+
     function changeSectionName(event) {
-        if (event.code === "Enter") {
-            if (event.currentTarget.value === "" || !props.changeSectionTitle(props.ind, event.currentTarget.value)) {
-                const span = event.currentTarget.parentElement;
-                event.currentTarget.remove();
-                span.innerHTML = CSS.escape(props.map.title);
-            }
+        if (event.currentTarget.value === "" || !props.changeSectionTitle(props.ind, event.currentTarget.value)) {
+            console.log("Replace");
+            const span = event.currentTarget.parentElement;
+            event.currentTarget.remove();
+            span.innerHTML = CSS.escape(props.map.title);
         }
     }
 
@@ -80,7 +88,7 @@ function ResumeEditorSection(props) {
     }
 
     return (
-        <div className="edit-section-container">
+        <div className={props.editType === 0 ? "edit-section-container" : "edit-section-container drag"}>
             <div className="edit-section-header">
                 <button onClick={props.editType === 0 ? e => checkClick(e) : null} onMouseDown={props.editType === 1 ? moveSection : null} className="header-title">
                     <span>
@@ -100,13 +108,13 @@ function ResumeEditorSection(props) {
                                 input.style.fontSize = "20px";
                                 input.className = "section-change";
                                 span.innerHTML = "";
-                                input.addEventListener("keydown", changeSectionName);
                                 span.appendChild(input);
                                 input.focus();
-                                document.addEventListener("mouseup", e => {
-                                    if (e.target.className !== "section-change") {
-                                        input.remove();
-                                        span.innerHTML = props.map.title;
+                                document.addEventListener("mouseup", removeInput);
+                                input.addEventListener("keydown", (e) => {
+                                    if (e.code === "Enter") {
+                                        document.removeEventListener("mouseup", removeInput)
+                                        changeSectionName(e);
                                     }
                                 });
                             }}>Edit Name</div>

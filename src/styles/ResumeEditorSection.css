@@ -115,6 +115,10 @@ dialog {
     gap:0.5rem;
 }
 
+.drag {
+    margin-bottom:2rem !important;
+}
+
 .edit-section-form {
     border-radius:10px;
     background-color:white;
