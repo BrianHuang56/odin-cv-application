@@ -39,8 +39,8 @@ function ResumeEditorSection(props) {
             document.addEventListener("mouseup", closeDragMouse);
             const section = event.currentTarget.parentElement.parentElement;
             const placeHolder = document.createElement("div");
-            placeHolder.style.height = section.offsetHeight + "px";
-            placeHolder.style.width = section.offsetWidth + "px";
+            placeHolder.style.height = section.offsetHeight + 8 + "px";
+            placeHolder.style.width = section.offsetWidth + 8 + "px";
             placeHolder.id = "placeholder";
             section.parentElement.insertBefore(placeHolder, section.nextSibling);
             section.style.width = section.offsetWidth + "px";

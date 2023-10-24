@@ -3,12 +3,17 @@
     background-color:#ffffff;
 }
 
+.header-title, .section-button, .form-header {
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+
 .editor-mode-container {
     padding:10px;
     display:flex;
     flex-direction:column;
     gap:0.5rem;
     background-color:white;
+    box-shadow:5px 5px rgba(0, 0, 0, 0.1);
     border-radius:8px;
     height:fit-content;
 }
@@ -112,7 +117,7 @@ dialog {
 .edit-section-container {
     display:flex;
     flex-direction:column;
-    gap:0.5rem;
+    gap:1rem;
 }
 
 .drag {
@@ -192,6 +197,7 @@ input {
 }
 
 .add-section {
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
     height:42.4px;
     border-radius:8px;
     text-align:center;
