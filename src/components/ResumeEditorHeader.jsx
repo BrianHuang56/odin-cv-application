@@ -12,7 +12,9 @@ function ResumeEditorHeader(props) {
     return (
         <div className="editor-header">
             <button onClick={toggleDrop} className="form-header header-title">Personal Details <img className="drop down" src={props.displaySubsec ? "/menu-up.svg" : "/menu-down.svg"} height="30px"/></button>
-            {props.displaySubsec && !displayForm ? 
+            {props.displaySubsec ? 
+            <div className="edit-section" style={{animation:"subsecInAnimation 150ms ease-in"}}>
+            {!displayForm ? 
                 <button className="section-button" onClick={() => setDisplay(!displayForm)}>{props.header.name}</button> : null}
                 {displayForm && props.displaySubsec ? 
                 <form className="edit-section-form">
@@ -45,6 +47,7 @@ function ResumeEditorHeader(props) {
                 </form>
                 : null
                 } 
+            </div> : null}
         </div>
     );
 }

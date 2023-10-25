@@ -11,8 +11,7 @@ function ResumeEditorSection(props) {
     function checkClick(event) {
         if (event.target.className === "section-change") return;
         if (event.target.className !== "triple-dot" && event.target.parentElement.className !== "triple-dot-drop") toggleDrop();
-        else if (event.target.parentElement.className === "triple-dot-drop") props.setTripleDot(-2);
-        else props.setTripleDot(props.ind);
+        else if (event.target.className === "triple-dot") props.setTripleDot(props.ind);
     }
 
     function removeInput(event) {
@@ -22,6 +21,7 @@ function ResumeEditorSection(props) {
             input.remove();
             span.innerHTML = props.map.title;
         }
+        document.removeEventListener("mouseup", removeInput);
     }
 
     function changeSectionName(event) {
@@ -40,7 +40,7 @@ function ResumeEditorSection(props) {
             const section = event.currentTarget.parentElement.parentElement;
             const placeHolder = document.createElement("div");
             placeHolder.style.height = section.offsetHeight + 8 + "px";
-            placeHolder.style.width = section.offsetWidth + 8 + "px";
+            placeHolder.style.width = section.offsetWidth + "px";
             placeHolder.id = "placeholder";
             section.parentElement.insertBefore(placeHolder, section.nextSibling);
             section.style.width = section.offsetWidth + "px";
@@ -87,6 +87,9 @@ function ResumeEditorSection(props) {
         setAddForm(-1);
     }
 
+    const fadeIn = {animation: "tripleInAnimation 150ms ease-in"};
+    const subsecFadeIn = {animation: "subsecInAnimation 150ms ease-in"};
+
     return (
         <div className={props.editType === 0 ? "edit-section-container" : "edit-section-container drag"}>
             <div className="edit-section-header">
@@ -98,7 +101,8 @@ function ResumeEditorSection(props) {
                     <div className="header-right">
                         <img className="drop down" src={props.displaySubsec ? "/menu-up.svg" : "/menu-down.svg"} height="30px"/>
                         <img className="triple-dot" src="/dots-vertical.svg" height="25px"/>
-                        {props.displayTripleDot ? <div className="triple-dot-drop">
+                        {props.displayTripleDot ? 
+                        <div className="triple-dot-drop" style={fadeIn}>
                             <div onMouseUp={e => {
                                 e.stopPropagation();
                                 const span = e.currentTarget.parentElement.parentElement.parentElement.querySelector("span");
@@ -129,7 +133,7 @@ function ResumeEditorSection(props) {
             {props.map.list && props.displaySubsec ? props.map.list.map((l, ind) => {
                 return <ResumeEditorSectionList showForm={formInd === ind} sectionInd={props.ind} setSection={props.setSection} ind={ind} setAddForm={setAddForm} setFormInd={setFormInd} title={props.map.title} key={l.key} list={l} onChange={props.onChange} delete={props.delete} revert={props.revert} save={props.save}/>
             }) : null}
-            {props.displaySubsec ? <div className="add-subsection">
+            {props.displaySubsec ? <div style={subsecFadeIn} className="add-subsection">
                 {addForm === -1 ? 
                     <button className="section-button" onClick={() => {
                         setAddForm(0);

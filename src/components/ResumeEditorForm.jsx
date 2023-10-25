@@ -11,24 +11,24 @@ function ResumeEditorForm(props) {
                 <img src="/window-close.svg" height="20px"/>
         </button>
             <label>
-                Name <input type="text" id="name" required onChange={e => props.onChange("name", e.target.value, props.title, props.list.key)} defaultValue={props.list.name || ' '} />
+                Name <input autoComplete="off" type="text" id="name" required onChange={e => props.onChange("name", e.target.value, props.title, props.list.key)} defaultValue={props.list.name || ''} />
             </label>
             <label>
-                Location <input type="text" id="location" onChange={e => props.onChange("location", e.target.value, props.title, props.list.key)} defaultValue={props.list.location || ' '}/>
+                Location <input autoComplete="off" type="text" id="location" onChange={e => props.onChange("location", e.target.value, props.title, props.list.key)} defaultValue={props.list.location || ''}/>
             </label>
             <div className="date-container">
                 <label>
-                    Start Date <input type="text" id="startdate" onChange={e => props.onChange("datestart", e.target.value, props.title, props.list.key)} defaultValue={props.list.datestart || ' '}/>
+                    Start Date <input autoComplete="off" type="text" id="startdate" onChange={e => props.onChange("datestart", e.target.value, props.title, props.list.key)} defaultValue={props.list.datestart || ''}/>
                 </label>
                 <label>
-                    End Date <input type="text" id="enddate" onChange={e => props.onChange("dateend", e.target.value, props.title, props.list.key)} defaultValue={props.list.dateend || ' '}/>
+                    End Date <input autoComplete="off" type="text" id="enddate" onChange={e => props.onChange("dateend", e.target.value, props.title, props.list.key)} defaultValue={props.list.dateend || ''}/>
                 </label>
             </div>
             <label>
-                Title <input type="text" id="title" onChange={e => props.onChange("title", e.target.value, props.title, props.list.key)} defaultValue={props.list.title || ' '}/>
+                Title <input autoComplete="off" type="text" id="title" onChange={e => props.onChange("title", e.target.value, props.title, props.list.key)} defaultValue={props.list.title || ''}/>
             </label>
             <label>
-                Description <textarea type="text" id="desc" onChange={e => props.onChange("description", e.target.value, props.title, props.list.key)} defaultValue={props.list.description || ' '}/>
+                Description <textarea type="text" id="desc" onChange={e => props.onChange("description", e.target.value, props.title, props.list.key)} defaultValue={props.list.description || ''}/>
             </label>
             <div className="button-container">
                 {props.list.key !== "temp" ?
@@ -42,9 +42,39 @@ function ResumeEditorForm(props) {
                     <div></div>    
                 }
                 <button className="save" onClick={e => {
-                    e.preventDefault();
-                    props.save(props.title, props.list.key);
-                    props.setForm(-1);
+                    const name = document.querySelector("#name");
+                    const startdate = document.querySelector("#startdate");
+                    const enddate = document.querySelector("#enddate");
+                    var error = false;
+                    if (name.value === "") {
+                        error = true;
+                        name.setCustomValidity("This value is required.");
+                        name.addEventListener("input", function removeError() {
+                            name.setCustomValidity("");
+                            name.removeEventListener("input", removeError);
+                        });
+                    }
+                    if (startdate.value === "") {
+                        error = true;
+                        startdate.setCustomValidity("This value is required.");
+                        startdate.addEventListener("input", function removeError() {
+                            startdate.setCustomValidity("");
+                            startdate.removeEventListener("input", removeError);
+                        });
+                    }
+                    if (enddate.value === "") {
+                        error = true;
+                        enddate.setCustomValidity("This value is required.");
+                        enddate.addEventListener("input", function removeError() {
+                            enddate.setCustomValidity("");
+                            enddate.removeEventListener("input", removeError);
+                        });
+                    }
+                    if (!error) {
+                        e.preventDefault();
+                        props.save(props.title, props.list.key);
+                        props.setForm(-1);
+                    }
                 }}>
                     Save
                 </button>

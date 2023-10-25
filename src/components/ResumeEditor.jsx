@@ -15,7 +15,11 @@ function ResumeEditor(props) {
 
     document.addEventListener("click", event => {
         if (event.target.className !== "triple-dot") {
-            setTripleDot(-1);
+            const drop = document.querySelector(".triple-dot-drop");
+            if (drop) {
+                drop.style.animation = "tripleOutAnimation 150ms ease-out";
+                setTimeout(() => {setTripleDot(-1)}, 140);
+            }
         }
     });
 

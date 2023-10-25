@@ -1,9 +1,9 @@
 import ResumeEditorForm from "./ResumeEditorForm";
 
 function ResumeEditorSectionList(props) {
-
+    const fadeIn = {animation: "subsecInAnimation 150ms ease-in"};
     return (
-        <div className="edit-section">
+        <div style={fadeIn} className="edit-section">
             {!props.showForm ? 
                 <button className="section-button" onClick={() => {
                     props.setSection(props.sectionInd);

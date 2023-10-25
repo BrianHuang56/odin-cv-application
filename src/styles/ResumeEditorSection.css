@@ -43,15 +43,56 @@ svg {
 }
 
 .triple-dot-drop {
+    box-shadow:2px 2px 5px 3px rgba(0, 0, 0, 0.1);
     position:absolute;
     text-wrap:nowrap;
-    padding:5px;
+    padding:10px;
     border-radius:8px;
     background-color:white;
     left:35px;
     top:10px;
     z-index:1;
 }
+
+.triple-dot-drop > :first-child {
+    padding-bottom:5px;
+}
+
+@keyframes tripleInAnimation {
+    0% {
+        top:-10px;
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        top:10px;
+        visibility: visible;
+    }
+  }
+  
+  @keyframes tripleOutAnimation {
+    0% {
+        opacity: 1;
+        top:10px;
+    }
+    100% {
+        opacity: 0;
+        top:-10px;
+        visibility: hidden;
+    }
+  }
+
+  @keyframes subsecInAnimation {
+    0% {
+        opacity:0;
+        top:-20px;
+    }
+    100% {
+        opacity:1;
+        top:0px;
+    }
+  }
 
 .section-button:hover {
     outline:1px solid lightskyblue;
@@ -86,8 +127,12 @@ dialog {
     font-weight:bold;
 }
 
+.edit-section, .add-subsection, .section-button {
+    position:relative;
+}
+
 .editor-header .section-button, .editor-header .edit-section-form {
-    margin-top:0.5rem;
+    margin-top:1rem;
 }
 
 .header-title {
