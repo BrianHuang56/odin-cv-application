@@ -26,22 +26,32 @@ function ResumeEditorHeader(props) {
                             <img src="/window-close.svg" height="20px"/>
                     </button>
                     <label>
-                        Name <input type="text" id="name" onChange={e => props.onChange("name", e.target.value)} defaultValue={props.header.name || ' '} />
+                        Name <input type="text" id="name" onChange={e => props.onChange("name", e.target.value)} defaultValue={props.header.name || ''} />
                     </label>
                     <label>
-                        Email <input type="email" id="email" onChange={e => props.onChange("email", e.target.value)} defaultValue={props.header.email || ' '}/>
+                        Email <input type="email" id="email" onChange={e => props.onChange("email", e.target.value)} defaultValue={props.header.email || ''}/>
                     </label>
                     <label>
-                        Phone Number <input type="tel" id="phone" onChange={e => props.onChange("phone", e.target.value)} defaultValue={props.header.phone || ' '}/>
+                        Phone Number <input type="tel" id="phone" onChange={e => props.onChange("phone", e.target.value)} defaultValue={props.header.phone || ''}/>
                     </label>
                     <label>
-                        Address <input type="text" id="address" onChange={e => props.onChange("location", e.target.value)} defaultValue={props.header.location || ' '}/>
+                        Address <input type="text" id="address" onChange={e => props.onChange("location", e.target.value)} defaultValue={props.header.location || ''}/>
                     </label>
                     <div id="button-container-header" className="button-container">
                         <button className="save" onClick={e => {
-                            e.preventDefault();
-                            setDisplay(false);
-                            props.save();
+                            const name = document.querySelector("#name");
+                            if (name.value === "") {
+                                name.setCustomValidity("This value is required.");
+                                name.addEventListener("input", function removeError() {
+                                    name.setCustomValidity("");
+                                    name.removeEventListener("input", removeError);
+                                });
+                            }
+                            else {
+                                e.preventDefault();
+                                setDisplay(false);
+                                props.save();
+                            }
                             }}>Save</button>
                     </div>
                 </form>
